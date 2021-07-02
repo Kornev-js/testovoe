@@ -8,7 +8,7 @@
             </a>
 
             <div class="dropdown ms-3 select">
-                <button class="btn btn-bd-light dropdown-toggle" id="bd-versions" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">
+                <button class="btn btn-bd-light " id="bd-versions"  aria-expanded="false" data-bs-display="static">
                     <i class="fa fa-user-circle" aria-hidden="true"></i>
                     <span class="d-none d-lg-inline">Your Name</span>
                 </button>
@@ -16,13 +16,17 @@
             </div>
         </header>
     </div>
-        <div >
+        <div class="container">
             <p>Contacts</p>
-            <div class="modal-dialog modal-dialog-centered">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" @click="showModal = true">
+
+
+
+
+                <button type="button" class="btn btn-primary add"   @click="showModal" >
+                    <i class="fas fa-plus-circle"></i>
                     Add contact
                 </button>
-            </div>
+
 
         </div>
 <div class="container">
@@ -30,53 +34,125 @@
             <thead>
 
             <tr>
-                <th scope="col"><input type="checkbox"></th>
+                <th scope="col"><input type="checkbox" class="checkall"></th>
 
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Address</th>
                 <th scope="col">Created</th>
-                <i class="fas fa-ellipsis-v"></i>
+
             </tr>
 
 
 
             </thead>
+
+
+
             <tbody v-for="desk in desks">
             <tr >
-<!--                <td><i class="far fa-times-circle"></i></td>-->
+<!--       <i class="far fa-times-circle"></i>         -->
 
-                <th scope="col"><input type="checkbox"></th>
-                <th scope="row">{{desk.name}}</th>
+                <th scope="col"><input type="checkbox" class="thing"><td></td>
+                <th scope="row"> <i class="far fa-times-circle"></i> {{desk.name}}</th>
                 <td>{{desk.email}}</td>
                 <td>{{desk.address}}</td>
-                <td>{{desk.created_at}}</td>
-                <i class="fas fa-ellipsis-v"></i>
+                <td>
+                    {{desk.created_at}}
+                    <div class="btn-group dropend">
+                    <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu" style="">
+                        <li><a class="dropdown-item" href="#" @click="showEdit"><i class="fas fa-align-justify"></i>View</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-times "></i>Delete</a></li>
+
+                    </ul>
+                </div>
+                </td>
+
+                <div class="alert alert-warning" role="alert" v-if="errored">
+                    Warning!!!
+                </div>
+
+
+<!--                <ShowEditDesk>-->
+<!--                    v-if="isEditModalVisible"-->
+<!--                    @closeModal="closeInfoModal"-->
+<!--                </ShowEditDesk>-->
+
             </tr>
 
             </tbody>
+
         </table>
 </div>
+
+        <ModalForm
+            v-if="isInfoModalVisible"
+            @closeModal="closeInfoModal"
+        ></ModalForm>
+
+
+
+
     </div>
 </template>
 
 <script>
+
+import ModalForm from "./ModalForm";
+import ShowEditDesk from "./ShowEditDesk";
+
 export default {
+
+    components: {
+        ShowEditDesk,
+      ModalForm
+    },
+    props: [
+      'deskId'
+    ],
  data() {
      return {
-         desks: []
+         isInfoModalVisible: false,
+         isEditModalVisible: false,
+         desks: [],
+         errored: false
      }
  },
+    methods:{
+      showModal() {
+          this.isInfoModalVisible = true
+      },
+        closeInfoModal(){
+            this.isInfoModalVisible = false
+        },
+        showEdit() {
+          this.isEditModalVisible = true
+        }
+
+    },
+
+
+
+
     mounted(){
 
      axios.get('api/desks')
         .then(response => {
-            console.log(response)
             this.desks = response.data
-            console.log(this.desks)
-        })
+
+        }).catch(error => {
+            console.log(error)
+         this.errored = true
+     })
 
     }
+
+
+
 }
 </script>
 
@@ -91,6 +167,18 @@ header {
     border-radius: 5%;
     margin-right: 25px;
     background-color: grey;
+}
+
+i {
+    padding-left: 10px;
+}
+
+.fa-times {
+    color: red;
+}
+
+.btn-primary.add{
+    margin-left: 900px;
 }
 
 </style>
