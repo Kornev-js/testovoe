@@ -1,5 +1,5 @@
 <template>
-<div class="modal-wrapper" @click="closeModal()">
+<div class="modal-wrapper">
     <div>
         <div class="modal-content">
             <div class="modal-header">
@@ -11,21 +11,21 @@
                 <div class="mb-3 row">
                     <label for="userName" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" v-model="name" id="userName" placeholder="Please enter your name">
+                        <input type="text" class="form-control" v-model="userName" id="userName" placeholder="Please enter your name" >
                     </div>
                 </div>
 
                     <div class="mb-3 row">
                         <label for="userEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="email" id="userEmail" placeholder="test@domain.com">
+                            <input type="text" class="form-control" v-model="userEmail" id="userEmail" placeholder="test@domain.com">
                         </div>
                     </div>
 
                         <div class="mb-3 row">
                             <label for="userAddress" class="col-sm-2 col-form-label">Address</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" v-model="address" id="userAddress" placeholder="New Channel Name">
+                                <input type="text" class="form-control" v-model="userAddress" id="userAddress" placeholder="New Channel Name">
                             </div>
                         </div>
 
@@ -48,22 +48,33 @@
 //todo read about vue  props: , watcher
 //check dmitriy solution
 export default {
-    props: {
-        'name': {
+    props:
+        ['name', 'email' , 'address'],
 
-        }
-    },
+
+
     data() {
         return {
-            name: '',
-            email: '',
-            address: '',
+            userName:'',
+            userEmail:'',
+            userAddress:'',
         desks: []
 
 
         }
     },
 
+    watch: {
+        'name': function (value, oldValue) {
+            this.userName = value;
+        },
+        'email': function (value, oldValue) {
+            this.userEmail = value;
+        },
+        'address': function (value, oldValue) {
+            this.userAddress = value;
+        },
+    },
 
     methods: {
         closeModal() {
@@ -72,14 +83,16 @@ export default {
 
         addNewDesk() {
             axios.post('/api/desks',{
-                name: this.name,
-                email: this.email,
-                address: this.address,
+                name: this.userName,
+                email: this.userEmail,
+                address: this.userAddress,
+
+
 
             })
             .then(response => {
                 this.desks = []
-                console.log(this.address, this.email, this.name)
+                this.closeModal()
             })
         },
 

@@ -10,5 +10,10 @@ class ContactDesk extends Model
     use HasFactory;
 
 
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+        'email',
+        'address',
+        'created_at',
+    ];
 }

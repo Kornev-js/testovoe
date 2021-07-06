@@ -1946,9 +1946,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1962,8 +1960,18 @@ __webpack_require__.r(__webpack_exports__);
       isInfoModalVisible: false,
       isEditModalVisible: false,
       desks: [],
-      errored: false
+      desk: {
+        id: '',
+        name: '',
+        email: '',
+        address: ''
+      },
+      errored: false,
+      timestamp: new Date().getFullYear()
     };
+  },
+  created: function created() {
+    setInterval(this.nowDate, 1000);
   },
   methods: {
     showModal: function showModal() {
@@ -1972,19 +1980,49 @@ __webpack_require__.r(__webpack_exports__);
     closeInfoModal: function closeInfoModal() {
       this.isInfoModalVisible = false;
     },
-    showEdit: function showEdit() {
-      this.isEditModalVisible = true;
-    }
+    deleteDesk: function deleteDesk(id) {
+      var _this = this;
+
+      if (confirm('Delete')) {
+        axios.post('api/desks/' + id, {
+          _method: 'DELETE'
+        }).then(function (response) {
+          _this.desks = [];
+
+          _this.getDesks();
+        });
+      }
+    },
+    editPost: function editPost(desk) {
+      this.showModal = true;
+      console.log(this.desk.name);
+      this.desk.name = desk.name;
+      this.desk.email = desk.email;
+      this.desk.address = desk.address;
+      this.editId = desk.id;
+      this.edit = true;
+    },
+    nowDate: function nowDate() {
+      var today = new Date();
+      var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      var dateTime = date + ' ' + time;
+      this.timestamp = dateTime;
+    },
+    getDesks: function getDesks() {
+      var _this2 = this;
+
+      axios.get('api/desks').then(function (response) {
+        _this2.desks = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+        _this2.errored = true;
+      });
+    },
+    checkAll: function checkAll() {}
   },
   mounted: function mounted() {
-    var _this = this;
-
-    axios.get('api/desks').then(function (response) {
-      _this.desks = response.data;
-    })["catch"](function (error) {
-      console.log(error);
-      _this.errored = true;
-    });
+    this.getDesks();
   }
 });
 
@@ -2050,16 +2088,25 @@ __webpack_require__.r(__webpack_exports__);
 //todo read about vue  props: , watcher
 //check dmitriy solution
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: {
-    'name': {}
-  },
+  props: ['name', 'email', 'address'],
   data: function data() {
     return {
-      name: '',
-      email: '',
-      address: '',
+      userName: '',
+      userEmail: '',
+      userAddress: '',
       desks: []
     };
+  },
+  watch: {
+    'name': function name(value, oldValue) {
+      this.userName = value;
+    },
+    'email': function email(value, oldValue) {
+      this.userEmail = value;
+    },
+    'address': function address(value, oldValue) {
+      this.userAddress = value;
+    }
   },
   methods: {
     closeModal: function closeModal() {
@@ -2069,12 +2116,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.post('/api/desks', {
-        name: this.name,
-        email: this.email,
-        address: this.address
+        name: this.userName,
+        email: this.userEmail,
+        address: this.userAddress
       }).then(function (response) {
         _this.desks = [];
-        console.log(_this.address, _this.email, _this.name);
+
+        _this.closeModal();
       });
     },
     mounted: function mounted() {}
@@ -2154,13 +2202,6 @@ __webpack_require__.r(__webpack_exports__);
     mounted: function mounted() {
       var _this = this;
 
-      var vm = this;
-      document.addEventListener('click', function (item) {
-        if (item.target === vm.$refs['modal_wrapper']) {
-          vm.closeModal();
-          console.log(vm.closeModal());
-        }
-      });
       axios.get('api/desks/' + this.deskId).then(function (response) {
         _this.desks = response.data;
       });
@@ -2180,18 +2221,21 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _components_App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/App */ "./resources/js/components/App.vue");
+/* harmony import */ var vuelidate_src__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuelidate/src */ "./node_modules/vuelidate/src/index.js");
+/* harmony import */ var _components_App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/App */ "./resources/js/components/App.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
+
 vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_1__.default);
+vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vuelidate_src__WEBPACK_IMPORTED_MODULE_2__.default);
 vue__WEBPACK_IMPORTED_MODULE_0__.default.component('app', __webpack_require__(/*! ./components/App */ "./resources/js/components/App.vue").default);
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_0__.default({
   el: '#app',
   components: {
-    App: _components_App__WEBPACK_IMPORTED_MODULE_2__.default
+    App: _components_App__WEBPACK_IMPORTED_MODULE_3__.default
   }
 });
 
@@ -20444,7 +20488,36 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._m(0),
+      _c("div", { staticClass: "container" }, [
+        _c(
+          "header",
+          {
+            staticClass:
+              "d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"
+          },
+          [
+            _c(
+              "a",
+              {
+                staticClass:
+                  "d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none",
+                attrs: { href: "/" }
+              },
+              [
+                _c("span", { staticClass: "fs-4" }, [
+                  _vm._v("Cool Project Name")
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "fs-4 ml-4" }, [
+                  _vm._v(_vm._s(_vm.timestamp))
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _vm._m(0)
+          ]
+        )
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "container" }, [
         _c("p", [_vm._v("Contacts")]),
@@ -20468,12 +20541,30 @@ var render = function() {
           "table",
           { staticClass: "table" },
           [
-            _vm._m(1),
+            _c("thead", [
+              _c("tr", [
+                _c("th", { attrs: { scope: "col" } }, [
+                  _c("input", {
+                    staticClass: "checkall",
+                    attrs: { type: "checkbox" },
+                    on: { change: _vm.checkAll }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
+                _vm._v(" "),
+                _c("th", { attrs: { scope: "col" } }, [_vm._v("Email")]),
+                _vm._v(" "),
+                _c("th", { attrs: { scope: "col" } }, [_vm._v("Address")]),
+                _vm._v(" "),
+                _c("th", { attrs: { scope: "col" } }, [_vm._v("Created")])
+              ])
+            ]),
             _vm._v(" "),
             _vm._l(_vm.desks, function(desk) {
               return _c("tbody", [
                 _c("tr", [
-                  _vm._m(2, true),
+                  _vm._m(1, true),
                   _c("th", { attrs: { scope: "row" } }, [
                     _c("i", { staticClass: "far fa-times-circle" }),
                     _vm._v(" " + _vm._s(desk.name))
@@ -20490,7 +20581,7 @@ var render = function() {
                         "\n                    "
                     ),
                     _c("div", { staticClass: "btn-group dropend" }, [
-                      _vm._m(3, true),
+                      _vm._m(2, true),
                       _vm._v(" "),
                       _c("ul", { staticClass: "dropdown-menu" }, [
                         _c("li", [
@@ -20499,7 +20590,11 @@ var render = function() {
                             {
                               staticClass: "dropdown-item",
                               attrs: { href: "#" },
-                              on: { click: _vm.showEdit }
+                              on: {
+                                click: function($event) {
+                                  return _vm.editPost()
+                                }
+                              }
                             },
                             [
                               _c("i", { staticClass: "fas fa-align-justify" }),
@@ -20508,9 +20603,28 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
-                        _vm._m(4, true),
+                        _vm._m(3, true),
                         _vm._v(" "),
-                        _vm._m(5, true)
+                        _c("li", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { href: "#" }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-times ",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deleteDesk(desk.id)
+                                  }
+                                }
+                              }),
+                              _vm._v("Delete")
+                            ]
+                          )
+                        ])
                       ])
                     ])
                   ]),
@@ -20528,7 +20642,8 @@ var render = function() {
                           )
                         ]
                       )
-                    : _vm._e()
+                    : _vm._e(),
+                  _vm._v("\n\n\n>\n\n            ")
                 ])
               ])
             })
@@ -20549,75 +20664,28 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
+    return _c("div", { staticClass: "dropdown ms-3 select" }, [
       _c(
-        "header",
+        "button",
         {
-          staticClass:
-            "d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"
+          staticClass: "btn btn-bd-light ",
+          attrs: {
+            id: "bd-versions",
+            "aria-expanded": "false",
+            "data-bs-display": "static"
+          }
         },
         [
-          _c(
-            "a",
-            {
-              staticClass:
-                "d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none",
-              attrs: { href: "/" }
-            },
-            [
-              _c("span", { staticClass: "fs-4" }, [
-                _vm._v("Cool Project Name")
-              ]),
-              _vm._v(" "),
-              _c("span", { staticClass: "fs-4 ml-4" }, [_vm._v("Current Date")])
-            ]
-          ),
+          _c("i", {
+            staticClass: "fa fa-user-circle",
+            attrs: { "aria-hidden": "true" }
+          }),
           _vm._v(" "),
-          _c("div", { staticClass: "dropdown ms-3 select" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-bd-light ",
-                attrs: {
-                  id: "bd-versions",
-                  "aria-expanded": "false",
-                  "data-bs-display": "static"
-                }
-              },
-              [
-                _c("i", {
-                  staticClass: "fa fa-user-circle",
-                  attrs: { "aria-hidden": "true" }
-                }),
-                _vm._v(" "),
-                _c("span", { staticClass: "d-none d-lg-inline" }, [
-                  _vm._v("Your Name")
-                ])
-              ]
-            )
+          _c("span", { staticClass: "d-none d-lg-inline" }, [
+            _vm._v("Your Name")
           ])
         ]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [
-          _c("input", { staticClass: "checkall", attrs: { type: "checkbox" } })
-        ]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Email")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Address")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Created")])
-      ])
     ])
   },
   function() {
@@ -20651,17 +20719,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("li", [_c("hr", { staticClass: "dropdown-divider" })])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-times " }),
-        _vm._v("Delete")
-      ])
-    ])
   }
 ]
 render._withStripped = true
@@ -20686,179 +20743,166 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "modal-wrapper",
-      on: {
-        click: function($event) {
-          return _vm.closeModal()
-        }
-      }
-    },
-    [
-      _c("div", [
-        _c("div", { staticClass: "modal-content" }, [
-          _c("div", { staticClass: "modal-header" }, [
-            _c("h5", { staticClass: "modal-title" }, [
-              _vm._v("Create Contact")
-            ]),
-            _vm._v(" "),
-            _c("button", {
-              staticClass: "btn-close",
-              attrs: {
-                type: "button",
-                "data-bs-dismiss": "modal",
-                "aria-label": "Close"
-              },
-              on: { click: _vm.closeModal }
-            })
-          ]),
+  return _c("div", { staticClass: "modal-wrapper" }, [
+    _c("div", [
+      _c("div", { staticClass: "modal-content" }, [
+        _c("div", { staticClass: "modal-header" }, [
+          _c("h5", { staticClass: "modal-title" }, [_vm._v("Create Contact")]),
           _vm._v(" "),
-          _c("div", { staticClass: "modal-body" }, [
-            _c("div", { staticClass: "mb-3 row" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "col-sm-2 col-form-label",
-                  attrs: { for: "userName" }
-                },
-                [_vm._v("Name")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-10" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.name,
-                      expression: "name"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    id: "userName",
-                    placeholder: "Please enter your name"
-                  },
-                  domProps: { value: _vm.name },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.name = $event.target.value
-                    }
-                  }
-                })
-              ])
-            ]),
+          _c("button", {
+            staticClass: "btn-close",
+            attrs: {
+              type: "button",
+              "data-bs-dismiss": "modal",
+              "aria-label": "Close"
+            },
+            on: { click: _vm.closeModal }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "modal-body" }, [
+          _c("div", { staticClass: "mb-3 row" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-sm-2 col-form-label",
+                attrs: { for: "userName" }
+              },
+              [_vm._v("Name")]
+            ),
             _vm._v(" "),
-            _c("div", { staticClass: "mb-3 row" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "col-sm-2 col-form-label",
-                  attrs: { for: "userEmail" }
-                },
-                [_vm._v("Email")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-10" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.email,
-                      expression: "email"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    id: "userEmail",
-                    placeholder: "test@domain.com"
-                  },
-                  domProps: { value: _vm.email },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.email = $event.target.value
-                    }
+            _c("div", { staticClass: "col-sm-10" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.userName,
+                    expression: "userName"
                   }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mb-3 row" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "col-sm-2 col-form-label",
-                  attrs: { for: "userAddress" }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "userName",
+                  placeholder: "Please enter your name"
                 },
-                [_vm._v("Address")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-10" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.address,
-                      expression: "address"
+                domProps: { value: _vm.userName },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    id: "userAddress",
-                    placeholder: "New Channel Name"
-                  },
-                  domProps: { value: _vm.address },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.address = $event.target.value
-                    }
+                    _vm.userName = $event.target.value
                   }
-                })
-              ])
+                }
+              })
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "modal-footer" }, [
+          _c("div", { staticClass: "mb-3 row" }, [
             _c(
-              "button",
+              "label",
               {
-                staticClass: "btn btn-secondary",
-                attrs: { type: "button", "data-bs-dismiss": "modal" },
-                on: { click: _vm.closeModal }
+                staticClass: "col-sm-2 col-form-label",
+                attrs: { for: "userEmail" }
               },
-              [_vm._v("Close")]
+              [_vm._v("Email")]
             ),
             _vm._v(" "),
+            _c("div", { staticClass: "col-sm-10" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.userEmail,
+                    expression: "userEmail"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "userEmail",
+                  placeholder: "test@domain.com"
+                },
+                domProps: { value: _vm.userEmail },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.userEmail = $event.target.value
+                  }
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mb-3 row" }, [
             _c(
-              "button",
+              "label",
               {
-                staticClass: "btn btn-primary",
-                attrs: { type: "button" },
-                on: { click: _vm.addNewDesk }
+                staticClass: "col-sm-2 col-form-label",
+                attrs: { for: "userAddress" }
               },
-              [_vm._v("Save changes")]
-            )
+              [_vm._v("Address")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-10" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.userAddress,
+                    expression: "userAddress"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "userAddress",
+                  placeholder: "New Channel Name"
+                },
+                domProps: { value: _vm.userAddress },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.userAddress = $event.target.value
+                  }
+                }
+              })
+            ])
           ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "modal-footer" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-secondary",
+              attrs: { type: "button", "data-bs-dismiss": "modal" },
+              on: { click: _vm.closeModal }
+            },
+            [_vm._v("Close")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary",
+              attrs: { type: "button" },
+              on: { click: _vm.addNewDesk }
+            },
+            [_vm._v("Save changes")]
+          )
         ])
       ])
-    ]
-  )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -36359,6 +36403,866 @@ function getOuterHTML (el) {
 Vue.compile = compileToFunctions;
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Vue);
+
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/src/index.js":
+/*!*********************************************!*\
+  !*** ./node_modules/vuelidate/src/index.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Vuelidate": () => (/* binding */ Vuelidate),
+/* harmony export */   "validationMixin": () => (/* binding */ validationMixin),
+/* harmony export */   "withParams": () => (/* reexport safe */ _params__WEBPACK_IMPORTED_MODULE_1__.withParams),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _vval__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vval */ "./node_modules/vuelidate/src/vval.js");
+/* harmony import */ var _params__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./params */ "./node_modules/vuelidate/src/params.js");
+
+
+const NIL = () => null
+
+const buildFromKeys = (keys, fn, keyFn) =>
+  keys.reduce((build, key) => {
+    build[keyFn ? keyFn(key) : key] = fn(key)
+    return build
+  }, {})
+
+function isFunction(val) {
+  return typeof val === 'function'
+}
+
+function isObject(val) {
+  return val !== null && (typeof val === 'object' || isFunction(val))
+}
+
+function isPromise(object) {
+  return isObject(object) && isFunction(object.then)
+}
+
+const getPath = (ctx, obj, path, fallback) => {
+  if (typeof path === 'function') {
+    return path.call(ctx, obj, fallback)
+  }
+
+  path = Array.isArray(path) ? path : path.split('.')
+  for (let i = 0; i < path.length; i++) {
+    if (obj && typeof obj === 'object') {
+      obj = obj[path[i]]
+    } else {
+      return fallback
+    }
+  }
+
+  return typeof obj === 'undefined' ? fallback : obj
+}
+
+;
+
+const __isVuelidateAsyncVm = '__isVuelidateAsyncVm'
+function makePendingAsyncVm(Vue, promise) {
+  const asyncVm = new Vue({
+    data: {
+      p: true, // pending
+      v: false // value
+    }
+  })
+
+  promise.then(
+    (value) => {
+      asyncVm.p = false
+      asyncVm.v = value
+    },
+    (error) => {
+      asyncVm.p = false
+      asyncVm.v = false
+      throw error
+    }
+  )
+
+  asyncVm[__isVuelidateAsyncVm] = true
+  return asyncVm
+}
+
+const validationGetters = {
+  $invalid() {
+    const proxy = this.proxy
+    return (
+      this.nestedKeys.some((nested) => this.refProxy(nested).$invalid) ||
+      this.ruleKeys.some((rule) => !proxy[rule])
+    )
+  },
+  $dirty() {
+    if (this.dirty) {
+      return true
+    }
+    if (this.nestedKeys.length === 0) {
+      return false
+    }
+
+    return this.nestedKeys.every((key) => this.refProxy(key).$dirty)
+  },
+  $anyDirty() {
+    if (this.dirty) {
+      return true
+    }
+    if (this.nestedKeys.length === 0) {
+      return false
+    }
+
+    return this.nestedKeys.some((key) => this.refProxy(key).$anyDirty)
+  },
+  $error() {
+    return this.$dirty && !this.$pending && this.$invalid
+  },
+  $anyError() {
+    if (this.$error) return true
+
+    return this.nestedKeys.some((key) => this.refProxy(key).$anyError)
+  },
+  $pending() {
+    return (
+      this.ruleKeys.some((key) => this.getRef(key).$pending) ||
+      this.nestedKeys.some((key) => this.refProxy(key).$pending)
+    )
+  },
+  $params() {
+    const vals = this.validations
+    return {
+      ...buildFromKeys(
+        this.nestedKeys,
+        (key) => (vals[key] && vals[key].$params) || null
+      ),
+      ...buildFromKeys(this.ruleKeys, (key) => this.getRef(key).$params)
+    }
+  }
+}
+
+function setDirtyRecursive(newState) {
+  this.dirty = newState
+  const proxy = this.proxy
+  const method = newState ? '$touch' : '$reset'
+  this.nestedKeys.forEach((key) => {
+    proxy[key][method]()
+  })
+}
+
+const validationMethods = {
+  $touch() {
+    setDirtyRecursive.call(this, true)
+  },
+  $reset() {
+    setDirtyRecursive.call(this, false)
+  },
+  $flattenParams() {
+    const proxy = this.proxy
+    let params = []
+    for (const key in this.$params) {
+      if (this.isNested(key)) {
+        const childParams = proxy[key].$flattenParams()
+        for (let j = 0; j < childParams.length; j++) {
+          childParams[j].path.unshift(key)
+        }
+        params = params.concat(childParams)
+      } else {
+        params.push({ path: [], name: key, params: this.$params[key] })
+      }
+    }
+    return params
+  }
+}
+
+const getterNames = Object.keys(validationGetters)
+const methodNames = Object.keys(validationMethods)
+
+let _cachedComponent = null
+const getComponent = (Vue) => {
+  if (_cachedComponent) {
+    return _cachedComponent
+  }
+
+  const VBase = Vue.extend({
+    computed: {
+      refs() {
+        const oldVval = this._vval
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this._vval = this.children
+        ;(0,_vval__WEBPACK_IMPORTED_MODULE_0__.patchChildren)(oldVval, this._vval)
+        const refs = {}
+        this._vval.forEach((c) => {
+          refs[c.key] = c.vm
+        })
+        return refs
+      }
+    },
+    beforeCreate() {
+      this._vval = null
+    },
+    beforeDestroy() {
+      if (this._vval) {
+        (0,_vval__WEBPACK_IMPORTED_MODULE_0__.patchChildren)(this._vval)
+        this._vval = null
+      }
+    },
+    methods: {
+      getModel() {
+        return this.lazyModel ? this.lazyModel(this.prop) : this.model
+      },
+      getModelKey(key) {
+        var model = this.getModel()
+        if (model) {
+          return model[key]
+        }
+      },
+      hasIter() {
+        return false
+      }
+    }
+  })
+
+  const ValidationRule = VBase.extend({
+    data() {
+      return {
+        rule: null,
+        lazyModel: null,
+        model: null,
+        lazyParentModel: null,
+        rootModel: null
+      }
+    },
+    methods: {
+      runRule(parent) {
+        // Avoid using this.lazyParentModel to not get dependent on it.
+        // Passed as an argument for workaround
+        const model = this.getModel()
+        ;(0,_params__WEBPACK_IMPORTED_MODULE_1__.pushParams)()
+        const rawOutput = this.rule.call(this.rootModel, model, parent)
+        const output = isPromise(rawOutput)
+          ? makePendingAsyncVm(Vue, rawOutput)
+          : rawOutput
+
+        const rawParams = (0,_params__WEBPACK_IMPORTED_MODULE_1__.popParams)()
+        const params =
+          rawParams && rawParams.$sub
+            ? rawParams.$sub.length > 1
+              ? rawParams
+              : rawParams.$sub[0]
+            : null
+
+        return { output, params }
+      }
+    },
+    computed: {
+      run() {
+        const parent = this.lazyParentModel()
+        const isArrayDependant = Array.isArray(parent) && parent.__ob__
+
+        if (isArrayDependant) {
+          // force depend on the array
+          const arrayDep = parent.__ob__.dep
+          arrayDep.depend()
+
+          const target = arrayDep.constructor.target
+
+          if (!this._indirectWatcher) {
+            const Watcher = target.constructor
+            this._indirectWatcher = new Watcher(
+              this,
+              () => this.runRule(parent),
+              null,
+              { lazy: true }
+            )
+          }
+
+          // if the update cause is only the array update
+          // and value stays the same, don't recalculate
+          const model = this.getModel()
+          if (!this._indirectWatcher.dirty && this._lastModel === model) {
+            this._indirectWatcher.depend()
+            return target.value
+          }
+
+          this._lastModel = model
+          this._indirectWatcher.evaluate()
+          this._indirectWatcher.depend()
+        } else if (this._indirectWatcher) {
+          // array was replaced with different type at runtime
+          this._indirectWatcher.teardown()
+          this._indirectWatcher = null
+        }
+        return this._indirectWatcher
+          ? this._indirectWatcher.value
+          : this.runRule(parent)
+      },
+      $params() {
+        return this.run.params
+      },
+      proxy() {
+        const output = this.run.output
+        if (output[__isVuelidateAsyncVm]) {
+          return !!output.v
+        }
+        return !!output
+      },
+      $pending() {
+        const output = this.run.output
+        if (output[__isVuelidateAsyncVm]) {
+          return output.p
+        }
+        return false
+      }
+    },
+    destroyed() {
+      if (this._indirectWatcher) {
+        this._indirectWatcher.teardown()
+        this._indirectWatcher = null
+      }
+    }
+  })
+
+  const Validation = VBase.extend({
+    data() {
+      return {
+        dirty: false,
+        validations: null,
+        lazyModel: null,
+        model: null,
+        prop: null,
+        lazyParentModel: null,
+        rootModel: null
+      }
+    },
+    methods: {
+      ...validationMethods,
+      refProxy(key) {
+        return this.getRef(key).proxy
+      },
+      getRef(key) {
+        return this.refs[key]
+      },
+      isNested(key) {
+        return typeof this.validations[key] !== 'function'
+      }
+    },
+    computed: {
+      ...validationGetters,
+      nestedKeys() {
+        return this.keys.filter(this.isNested)
+      },
+      ruleKeys() {
+        return this.keys.filter((k) => !this.isNested(k))
+      },
+      keys() {
+        return Object.keys(this.validations).filter((k) => k !== '$params')
+      },
+      proxy() {
+        const keyDefs = buildFromKeys(this.keys, (key) => ({
+          enumerable: true,
+          configurable: true, // allow mocking lib calls
+          get: () => this.refProxy(key)
+        }))
+
+        const getterDefs = buildFromKeys(getterNames, (key) => ({
+          enumerable: true,
+          configurable: true,
+          get: () => this[key]
+        }))
+
+        const methodDefs = buildFromKeys(methodNames, (key) => ({
+          enumerable: false,
+          configurable: true,
+          get: () => this[key]
+        }))
+
+        const iterDefs = this.hasIter()
+          ? {
+              $iter: {
+                enumerable: true,
+                value: Object.defineProperties(
+                  {},
+                  {
+                    ...keyDefs
+                  }
+                )
+              }
+            }
+          : {}
+
+        return Object.defineProperties(
+          {},
+          {
+            ...keyDefs,
+            ...iterDefs,
+            $model: {
+              enumerable: true,
+              get: () => {
+                const parent = this.lazyParentModel()
+                if (parent != null) {
+                  return parent[this.prop]
+                } else {
+                  return null
+                }
+              },
+              set: (value) => {
+                const parent = this.lazyParentModel()
+                if (parent != null) {
+                  parent[this.prop] = value
+                  this.$touch()
+                }
+              }
+            },
+            ...getterDefs,
+            ...methodDefs
+          }
+        )
+      },
+      children() {
+        return [
+          ...this.nestedKeys.map((key) => renderNested(this, key)),
+          ...this.ruleKeys.map((key) => renderRule(this, key))
+        ].filter(Boolean)
+      }
+    }
+  })
+
+  const GroupValidation = Validation.extend({
+    methods: {
+      isNested(key) {
+        return typeof this.validations[key]() !== 'undefined'
+      },
+      getRef(key) {
+        const vm = this
+        return {
+          get proxy() {
+            // default to invalid
+            return vm.validations[key]() || false
+          }
+        }
+      }
+    }
+  })
+
+  const EachValidation = Validation.extend({
+    computed: {
+      keys() {
+        var model = this.getModel()
+        if (isObject(model)) {
+          return Object.keys(model)
+        } else {
+          return []
+        }
+      },
+      tracker() {
+        const trackBy = this.validations.$trackBy
+        return trackBy
+          ? (key) =>
+              `${getPath(this.rootModel, this.getModelKey(key), trackBy)}`
+          : (x) => `${x}`
+      },
+      getModelLazy() {
+        return () => this.getModel()
+      },
+      children() {
+        const def = this.validations
+        const model = this.getModel()
+
+        const validations = { ...def }
+        delete validations['$trackBy']
+
+        let usedTracks = {}
+
+        return this.keys
+          .map((key) => {
+            const track = this.tracker(key)
+            if (usedTracks.hasOwnProperty(track)) {
+              return null
+            }
+            usedTracks[track] = true
+            return (0,_vval__WEBPACK_IMPORTED_MODULE_0__.h)(Validation, track, {
+              validations,
+              prop: key,
+              lazyParentModel: this.getModelLazy,
+              model: model[key],
+              rootModel: this.rootModel
+            })
+          })
+          .filter(Boolean)
+      }
+    },
+    methods: {
+      isNested() {
+        return true
+      },
+      getRef(key) {
+        return this.refs[this.tracker(key)]
+      },
+      hasIter() {
+        return true
+      }
+    }
+  })
+
+  const renderNested = (vm, key) => {
+    if (key === '$each') {
+      return (0,_vval__WEBPACK_IMPORTED_MODULE_0__.h)(EachValidation, key, {
+        validations: vm.validations[key],
+        lazyParentModel: vm.lazyParentModel,
+        prop: key,
+        lazyModel: vm.getModel,
+        rootModel: vm.rootModel
+      })
+    }
+    const validations = vm.validations[key]
+    if (Array.isArray(validations)) {
+      const root = vm.rootModel
+      const refVals = buildFromKeys(
+        validations,
+        (path) =>
+          function() {
+            return getPath(root, root.$v, path)
+          },
+        (v) => (Array.isArray(v) ? v.join('.') : v)
+      )
+      return (0,_vval__WEBPACK_IMPORTED_MODULE_0__.h)(GroupValidation, key, {
+        validations: refVals,
+        lazyParentModel: NIL,
+        prop: key,
+        lazyModel: NIL,
+        rootModel: root
+      })
+    }
+    return (0,_vval__WEBPACK_IMPORTED_MODULE_0__.h)(Validation, key, {
+      validations,
+      lazyParentModel: vm.getModel,
+      prop: key,
+      lazyModel: vm.getModelKey,
+      rootModel: vm.rootModel
+    })
+  }
+
+  const renderRule = (vm, key) => {
+    return (0,_vval__WEBPACK_IMPORTED_MODULE_0__.h)(ValidationRule, key, {
+      rule: vm.validations[key],
+      lazyParentModel: vm.lazyParentModel,
+      lazyModel: vm.getModel,
+      rootModel: vm.rootModel
+    })
+  }
+
+  _cachedComponent = { VBase, Validation }
+  return _cachedComponent
+}
+
+let _cachedVue = null
+function getVue(rootVm) {
+  if (_cachedVue) return _cachedVue
+  let Vue = rootVm.constructor
+  /* istanbul ignore next */
+  while (Vue.super) Vue = Vue.super
+  _cachedVue = Vue
+  return Vue
+}
+
+const validateModel = (model, validations) => {
+  const Vue = getVue(model)
+  const { Validation, VBase } = getComponent(Vue)
+  const root = new VBase({
+    computed: {
+      children() {
+        const vals =
+          typeof validations === 'function'
+            ? validations.call(model)
+            : validations
+
+        return [
+          (0,_vval__WEBPACK_IMPORTED_MODULE_0__.h)(Validation, '$v', {
+            validations: vals,
+            lazyParentModel: NIL,
+            prop: '$v',
+            model,
+            rootModel: model
+          })
+        ]
+      }
+    }
+  })
+  return root
+}
+
+const validationMixin = {
+  data() {
+    const vals = this.$options.validations
+    if (vals) {
+      this._vuelidate = validateModel(this, vals)
+    }
+    return {}
+  },
+  beforeCreate() {
+    const options = this.$options
+    const vals = options.validations
+    if (!vals) return
+    if (!options.computed) options.computed = {}
+    if (options.computed.$v) return
+    options.computed.$v = function() {
+      return this._vuelidate ? this._vuelidate.refs.$v.proxy : null
+    }
+  },
+  beforeDestroy() {
+    if (this._vuelidate) {
+      this._vuelidate.$destroy()
+      this._vuelidate = null
+    }
+  }
+}
+
+function Vuelidate(Vue) {
+  Vue.mixin(validationMixin)
+}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Vuelidate);
+
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/src/params.js":
+/*!**********************************************!*\
+  !*** ./node_modules/vuelidate/src/params.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "target": () => (/* binding */ target),
+/* harmony export */   "_setTarget": () => (/* binding */ _setTarget),
+/* harmony export */   "pushParams": () => (/* binding */ pushParams),
+/* harmony export */   "popParams": () => (/* binding */ popParams),
+/* harmony export */   "withParams": () => (/* binding */ withParams)
+/* harmony export */ });
+const stack = []
+
+// exported for tests
+let target = null
+const _setTarget = (x) => {
+  target = x
+}
+
+function pushParams() {
+  if (target !== null) {
+    stack.push(target)
+  }
+  target = {}
+}
+
+function popParams() {
+  const lastTarget = target
+  const newTarget = (target = stack.pop() || null)
+  if (newTarget) {
+    if (!Array.isArray(newTarget.$sub)) {
+      newTarget.$sub = []
+    }
+    newTarget.$sub.push(lastTarget)
+  }
+  return lastTarget
+}
+
+function addParams(params) {
+  if (typeof params === 'object' && !Array.isArray(params)) {
+    target = { ...target, ...params }
+  } else {
+    throw new Error('params must be an object')
+  }
+}
+
+function withParamsDirect(params, validator) {
+  return withParamsClosure((add) => {
+    return function(...args) {
+      add(params)
+      return validator.apply(this, args)
+    }
+  })
+}
+
+function withParamsClosure(closure) {
+  const validator = closure(addParams)
+  return function(...args) {
+    pushParams()
+    try {
+      return validator.apply(this, args)
+    } finally {
+      popParams()
+    }
+  }
+}
+
+function withParams(paramsOrClosure, maybeValidator) {
+  if (typeof paramsOrClosure === 'object' && maybeValidator !== undefined) {
+    return withParamsDirect(paramsOrClosure, maybeValidator)
+  }
+  return withParamsClosure(paramsOrClosure)
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/src/vval.js":
+/*!********************************************!*\
+  !*** ./node_modules/vuelidate/src/vval.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "patchChildren": () => (/* binding */ patchChildren),
+/* harmony export */   "h": () => (/* binding */ h)
+/* harmony export */ });
+// a minimial single-layer implementation
+// of virtual-validation patching,
+// based on Vue's snabbdom clone
+
+function isUndef(v) {
+  return v === null || v === undefined
+}
+
+function isDef(v) {
+  return v !== null && v !== undefined
+}
+
+function sameVval(oldVval, vval) {
+  return vval.tag === oldVval.tag && vval.key === oldVval.key
+}
+
+function createVm(vval) {
+  const Vm = vval.tag
+  vval.vm = new Vm({ data: vval.args })
+}
+
+function updateVval(vval) {
+  const keys = Object.keys(vval.args)
+  for (let i = 0; i < keys.length; i++) {
+    keys.forEach((k) => {
+      vval.vm[k] = vval.args[k]
+    })
+  }
+}
+
+function createKeyToOldIdx(children, beginIdx, endIdx) {
+  let i, key
+  const map = {}
+  for (i = beginIdx; i <= endIdx; ++i) {
+    key = children[i].key
+    if (isDef(key)) map[key] = i
+  }
+  return map
+}
+
+function updateChildren(oldCh, newCh) {
+  let oldStartIdx = 0
+  let newStartIdx = 0
+  let oldEndIdx = oldCh.length - 1
+  let oldStartVval = oldCh[0]
+  let oldEndVval = oldCh[oldEndIdx]
+  let newEndIdx = newCh.length - 1
+  let newStartVval = newCh[0]
+  let newEndVval = newCh[newEndIdx]
+  let oldKeyToIdx, idxInOld, elmToMove
+
+  while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+    if (isUndef(oldStartVval)) {
+      oldStartVval = oldCh[++oldStartIdx] // Vval has been moved left
+    } else if (isUndef(oldEndVval)) {
+      oldEndVval = oldCh[--oldEndIdx]
+    } else if (sameVval(oldStartVval, newStartVval)) {
+      patchVval(oldStartVval, newStartVval)
+      oldStartVval = oldCh[++oldStartIdx]
+      newStartVval = newCh[++newStartIdx]
+    } else if (sameVval(oldEndVval, newEndVval)) {
+      patchVval(oldEndVval, newEndVval)
+      oldEndVval = oldCh[--oldEndIdx]
+      newEndVval = newCh[--newEndIdx]
+    } else if (sameVval(oldStartVval, newEndVval)) {
+      // Vval moved right
+      patchVval(oldStartVval, newEndVval)
+      oldStartVval = oldCh[++oldStartIdx]
+      newEndVval = newCh[--newEndIdx]
+    } else if (sameVval(oldEndVval, newStartVval)) {
+      // Vval moved left
+      patchVval(oldEndVval, newStartVval)
+      oldEndVval = oldCh[--oldEndIdx]
+      newStartVval = newCh[++newStartIdx]
+    } else {
+      if (isUndef(oldKeyToIdx))
+        oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx)
+      idxInOld = isDef(newStartVval.key) ? oldKeyToIdx[newStartVval.key] : null
+      if (isUndef(idxInOld)) {
+        // New element
+        createVm(newStartVval)
+        newStartVval = newCh[++newStartIdx]
+      } else {
+        elmToMove = oldCh[idxInOld]
+        if (sameVval(elmToMove, newStartVval)) {
+          patchVval(elmToMove, newStartVval)
+          oldCh[idxInOld] = undefined
+          newStartVval = newCh[++newStartIdx]
+        } else {
+          // same key but different element. treat as new element
+          createVm(newStartVval)
+          newStartVval = newCh[++newStartIdx]
+        }
+      }
+    }
+  }
+  if (oldStartIdx > oldEndIdx) {
+    addVvals(newCh, newStartIdx, newEndIdx)
+  } else if (newStartIdx > newEndIdx) {
+    removeVvals(oldCh, oldStartIdx, oldEndIdx)
+  }
+}
+
+function addVvals(vvals, startIdx, endIdx) {
+  for (; startIdx <= endIdx; ++startIdx) {
+    createVm(vvals[startIdx])
+  }
+}
+
+function removeVvals(vvals, startIdx, endIdx) {
+  for (; startIdx <= endIdx; ++startIdx) {
+    const ch = vvals[startIdx]
+    if (isDef(ch)) {
+      ch.vm.$destroy()
+      ch.vm = null
+    }
+  }
+}
+
+function patchVval(oldVval, vval) {
+  if (oldVval === vval) {
+    return
+  }
+  vval.vm = oldVval.vm
+  updateVval(vval)
+}
+
+function patchChildren(oldCh, ch) {
+  if (isDef(oldCh) && isDef(ch)) {
+    if (oldCh !== ch) updateChildren(oldCh, ch)
+  } else if (isDef(ch)) {
+    addVvals(ch, 0, ch.length - 1)
+  } else if (isDef(oldCh)) {
+    removeVvals(oldCh, 0, oldCh.length - 1)
+  }
+}
+
+function h(tag, key, args) {
+  return { tag, key, args }
+}
 
 
 /***/ })

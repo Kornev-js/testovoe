@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+
 class DeskResource extends JsonResource
 {
     /**
@@ -19,7 +20,7 @@ class DeskResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'address' => $this->address,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->diffForHumans(),
 
         ];
     }

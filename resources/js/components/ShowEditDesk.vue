@@ -64,15 +64,7 @@ export default {
 
 
         mounted() {
-            let vm = this
-
-            document.addEventListener('click', function (item) {
-                if (item.target === vm.$refs['modal_wrapper']) {
-                    vm.closeModal()
-                    console.log(vm.closeModal())
-
-                }
-            }); axios.get('api/desks/'+this.deskId)
+             axios.get('api/desks/'+this.deskId)
             .then(response => {
                 this.desks = response.data
             })

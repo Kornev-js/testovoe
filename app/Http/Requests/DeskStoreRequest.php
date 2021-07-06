@@ -24,7 +24,9 @@ class DeskStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:5'
+            'name' => 'min:5',
+            'email' => 'min:5',
+            'address' => 'min:5'
 
         ];
     }
