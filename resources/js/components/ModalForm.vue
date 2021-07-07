@@ -11,29 +11,39 @@
                 <div class="mb-3 row">
                     <label for="userName" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" v-model="userName" id="userName" placeholder="Please enter your name" >
+                        <input type="text" class="form-control" :class="validate.name ? '' : ' is-invalid'" v-model="userName" id="userName" placeholder="Please enter your name" >
+                        <div v-if="!validate.name" class="invalid-feedback">
+                            The name must be at least 5 characters.
+                        </div>
                     </div>
                 </div>
 
-                    <div class="mb-3 row">
-                        <label for="userEmail" class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="userEmail" id="userEmail" placeholder="test@domain.com">
+                <div class="mb-3 row">
+                    <label for="userEmail" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" :class="validate.email && validate.emailParser ? '' : ' is-invalid'" v-model="userEmail" id="userEmail" placeholder="test@domain.com">
+                        <div v-if="!validate.email" class="invalid-feedback">
+                            The email must be at least 5 characters.
+                        </div>
+                        <div v-if="!validate.emailParser" class="invalid-feedback">
+                            Invalid email
+                    </div>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="userAddress" class="col-sm-2 col-form-label">Address</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" :class="validate.address ? '' : ' is-invalid'" v-model="userAddress" id="userAddress" placeholder="New Channel Name">
+                        <div v-if="!validate.address" class="invalid-feedback">
+                            The address must be at least 5 characters.
                         </div>
                     </div>
-
-                        <div class="mb-3 row">
-                            <label for="userAddress" class="col-sm-2 col-form-label">Address</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" v-model="userAddress" id="userAddress" placeholder="New Channel Name">
-                            </div>
-                        </div>
-
-
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="closeModal">Close</button>
-                <button type="button" class="btn btn-primary" @click="addNewDesk">Save changes</button>
+                <button type="button" class="btn btn-primary" @click="addNewDesk">Add</button>
             </div>
         </div>
     </div>
@@ -48,31 +58,38 @@
 //todo read about vue  props: , watcher
 //check dmitriy solution
 export default {
-    props:
-        ['name', 'email' , 'address'],
-
-
+    props:{
+        desks: {
+            type: Array,
+            default: [],
+        }
+    },
 
     data() {
         return {
             userName:'',
             userEmail:'',
             userAddress:'',
-        desks: []
-
-
+            validate:{
+                name: true,
+                email: true,
+                emailParser: true,
+                address: true,
+            },
         }
     },
 
     watch: {
-        'name': function (value, oldValue) {
-            this.userName = value;
+        userName(){
+            this.validate.name = !(this.userName.length < 5 && this.userName.length > 0);
         },
-        'email': function (value, oldValue) {
-            this.userEmail = value;
+        userEmail(){
+            this.validate.email = !(this.userEmail.length < 5 && this.userEmail.length > 0);
+            let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+            this.validate.emailParser = reg.test(this.userEmail) || this.userEmail.length < 1;
         },
-        'address': function (value, oldValue) {
-            this.userAddress = value;
+        userAddress(){
+            this.validate.address = !(this.userAddress.length < 5 && this.userAddress.length > 0);
         },
     },
 
@@ -81,21 +98,21 @@ export default {
             this.$emit('closeModal')
         },
 
-        addNewDesk() {
-            axios.post('/api/desks',{
+        async addNewDesk() {
+            let data = {
                 name: this.userName,
                 email: this.userEmail,
                 address: this.userAddress,
-
-
-
-            })
+            }
+            await axios.post('/api/desks', data)
             .then(response => {
-                this.desks = []
-                this.closeModal()
+                data.created = false;
+                data.created_at = new Date().toISOString().slice(0, 19) + ".000000Z";
+                data.id = response.data.data.id;
+                this.desks.push(data);
+                this.closeModal();
             })
         },
-
 
         mounted() {
 
