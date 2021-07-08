@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DeskStoreRequest;
+use App\Http\Requests\DeskUpdateRequest;
 use App\Http\Resources\DeskResource;
 use App\Models\ContactDesk;
 use http\Env\Response;
@@ -52,7 +53,7 @@ class Deskcontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(DeskStoreRequest $request, ContactDesk $desk)
+    public function update(DeskUpdateRequest $request, ContactDesk $desk)
     {
         $desk->update($request->validated());
         return new DeskResource($desk);

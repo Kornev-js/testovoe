@@ -1,7 +1,7 @@
 <template>
 <div class="modal-wrapper">
-    //todo single modal for editing and creating
-    //into modal you need pass id. IF id empty - modal type = create. If id not empty - modal type edit
+<!--    //TODO: single modal for editing and creating :DONE-->
+<!--    //TODO: into modal you need pass id. IF id empty - modal type = create. If id not empty - modal type edit :DONE-->
     <div>
         <div class="modal-content">
             <div class="modal-header">
@@ -15,9 +15,9 @@
                 <div class="mb-3 row">
                     <label for="userName" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" :class="validate.name ? '' : ' is-invalid'" v-model="userName" id="userName" placeholder="Please enter your name" >
-                        <div v-if="!validate.name" class="invalid-feedback">
-                            The name must be at least 5 characters.
+                        <input type="text" class="form-control" :class="validate.name === undefined ? '' : ' is-invalid'" v-model="userName" id="userName" placeholder="Please enter your name" >
+                        <div v-for="error in validate.name" v-if="validate.name !== null" class="invalid-feedback">
+                            {{ error }}
                         </div>
                     </div>
                 </div>
@@ -25,37 +25,33 @@
                 <div class="mb-3 row">
                     <label for="userEmail" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" :class="validate.email && validate.emailParser ? '' : ' is-invalid'" v-model="userEmail" id="userEmail" placeholder="test@domain.com">
-                        <div v-if="!validate.email" class="invalid-feedback">
-                            The email must be at least 5 characters.
+                        <input type="text" class="form-control" :class="validate.email === undefined ? '' : ' is-invalid'" v-model="userEmail" id="userEmail" placeholder="test@domain.com">
+                        <div v-for="error in validate.email" v-if="validate.email !== null" class="invalid-feedback">
+                            {{ error }}
                         </div>
-                        <div v-if="!validate.emailParser" class="invalid-feedback">
-                            Invalid email
-                    </div>
-
                     </div>
                 </div>
 
                 <div class="mb-3 row">
                     <label for="userAddress" class="col-sm-2 col-form-label">Address</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" :class="validate.address ? '' : ' is-invalid'" v-model="userAddress" id="userAddress" placeholder="New Channel Name">
-                        <div v-if="!validate.address" class="invalid-feedback">
-                            The address must be at least 5 characters.
+                        <input type="text" class="form-control" :class="validate.address === undefined ? '' : ' is-invalid'" v-model="userAddress" id="userAddress" placeholder="New Channel Name">
+                        <div v-for="error in validate.address" v-if="validate.address !== null" class="invalid-feedback">
+                            {{ error }}
                         </div>
-
                     </div>
                 </div>
             </div>
-                    //todo study absolute paths to images in laravel + vue
-                    <div class="col-md-6"><img src="/images/cross.png" alt="" width="150px" height="150px"></div>
+<!--                    //TODO: study absolute paths to images in laravel + vue :DONE-->
+                    <div class="col-md-6"><img :src="require('../../pictures/cross.png').default" alt="" width="150px" height="150px"></div>
                 </div>
             </div>
 
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="closeModal">Close</button>
-                <button type="button" class="btn btn-primary" @click="addNewDesk">Add</button>
+                <button v-if="desk === null" type="button" class="btn btn-primary" @click="addNewDesk">Add</button>
+                <button v-else type="button" class="btn btn-primary" @click="editDesk">Edit</button>
             </div>
         </div>
     </div>
@@ -67,14 +63,19 @@
 </template>
 
 <script>
+import moment from "moment";
 
-//todo read about vue  props: , watcher
-//check dmitriy solution
+//TODO: read about vue  props: , watcher :DONE
+//TODO: check dmitriy solution :DONE
 export default {
     props:{
         desks: {
             type: Array,
             default: [],
+        },
+        desk: {
+            type: Object,
+            default: null
         }
     },
 
@@ -85,28 +86,24 @@ export default {
             userAddress:'',
 
             validate:{
-                name: true,
-                email: true,
-                emailParser: true,
-                address: true,
             },
         }
     },
 
     watch: {
-        //todo move validation from js to laravel
-        //show validation errors from laravel
-        userName(){
-            this.validate.name = !(this.userName.length < 5 && this.userName.length > 0);
-        },
-        userEmail(){
-            this.validate.email = !(this.userEmail.length < 5 && this.userEmail.length > 0);
-            let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-            this.validate.emailParser = reg.test(this.userEmail) || this.userEmail.length < 1;
-        },
-        userAddress(){
-            this.validate.address = !(this.userAddress.length < 5 && this.userAddress.length > 0);
-        },
+        //TODO: move validation from js to laravel :DONE
+        //TODO: show validation errors from laravel :DONE
+        // userName(){
+        //     this.validate.name = !(this.userName.length < 5 && this.userName.length > 0);
+        // },
+        // userEmail(){
+        //     // this.validate.email = !(this.userEmail.length < 5 && this.userEmail.length > 0);
+        //     let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        //     this.validate.emailParser = reg.test(this.userEmail) || this.userEmail.length < 1;
+        // },
+        // userAddress(){
+        //     this.validate.address = !(this.userAddress.length < 5 && this.userAddress.length > 0);
+        // },
     },
 
     methods: {
@@ -122,17 +119,41 @@ export default {
             }
             await axios.post('/api/desks', data)
             .then(response => {
-                data.created = false;
+                data.checked = false;
                 data.created_at = new Date().toISOString().slice(0, 19) + ".000000Z";
                 data.id = response.data.data.id;
+                data.timeString = moment(new Date()).fromNow();
                 this.desks.push(data);
                 this.closeModal();
+            }).catch(error => {
+                    this.validate = error.response.data.errors;
+                })
+        },
+
+        editDesk() {
+            let data = {
+                name: this.userName,
+                email: this.userEmail,
+                address: this.userAddress,
+            }
+            axios.put('/api/desks/' + this.desk.id, data)
+                .then(response => {
+                    this.closeModal();
+                    this.desk.name = this.userName;
+                    this.desk.email = this.userEmail;
+                    this.desk.address = this.userAddress;
+                }).catch(error => {
+                this.validate = error.response.data.errors;
             })
         },
+    },
 
-        mounted() {
-
-        },
+    mounted() {
+        if(this.desk){
+            this.userName = this.desk.name;
+            this.userEmail = this.desk.email;
+            this.userAddress = this.desk.address;
+        }
     },
 }
 </script>
@@ -154,9 +175,4 @@ export default {
 img {
     margin-left: 75px;
 }
-
-
-
-
-
 </style>
