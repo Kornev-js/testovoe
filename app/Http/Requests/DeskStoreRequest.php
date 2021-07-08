@@ -23,6 +23,8 @@ class DeskStoreRequest extends FormRequest
      */
     public function rules()
     {
+        //todo make separated update request
+        //todo make normal rules
         return [
             'name' => 'min:5',
             'email' => 'min:5',

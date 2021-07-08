@@ -2,7 +2,7 @@ require('./bootstrap');
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Vuelidate from "vuelidate/src";
+import Vuelidate from "vuelidate/src"
 
 
 Vue.use(VueRouter)

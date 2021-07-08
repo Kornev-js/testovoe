@@ -2000,6 +2000,48 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2266,6 +2308,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //todo read about vue  props: , watcher
 //check dmitriy solution
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2289,6 +2343,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   watch: {
+    //todo move validation from js to laravel
+    //show validation errors from laravel
     userName: function userName() {
       this.validate.name = !(this.userName.length < 5 && this.userName.length > 0);
     },
@@ -2355,6 +2411,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
 //
 //
 //
@@ -2548,7 +2608,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nheader {\n    background-color: #ff9900;\n}\n.select {\n    border: 1px solid black;\n    border-radius: 5%;\n    margin-right: 25px;\n    background-color: grey;\n}\ni {\n    padding-left: 10px;\n}\n.fa-times {\n    color: red;\n}\n.btn-primary.add{\n    margin-left: 900px;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.text-white {\n    background-color: #ff9900;\n    padding-bottom: 3px;\n}\n.select {\n    border: 1px solid black;\n    border-radius: 5%;\n    margin-right: 25px;\n    background-color: #7f4c00;\n}\ni {\n    padding-left: 10px;\n}\n.fa-times {\n    color: red;\n}\n.fa-user-circle {\n    margin-right: 5px;\n}\n.btn-primary.add {\n    margin-left: 900px;\n}\n.fs-4 {\n    margin-left: 10px;\n}\n.far,\n.fas {\n    margin-right: 7px;\n}\n.fa-sort {\n    padding-left: 50px;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2572,7 +2632,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-wrapper[data-v-77aa16b6] {\n    display: flex;\n    position: absolute;\n    align-items: center;\n    right: 0;\n    left: 0;\n    top: 0;\n    bottom: 0;\n    justify-content: center;\n    background: rgba(64, 64, 64, .4);\n}\n\n\n\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-wrapper[data-v-77aa16b6] {\n    display: flex;\n    position: absolute;\n    align-items: center;\n    right: 0;\n    left: 0;\n    top: 0;\n    bottom: 0;\n    justify-content: center;\n    background: rgba(64, 64, 64, .4);\n}\nimg[data-v-77aa16b6] {\n    margin-left: 75px;\n}\n\n\n\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2596,7 +2656,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-wrapper[data-v-26617c6a] {\n    display: flex;\n    position: absolute;\n    align-items: center;\n    right: 0;\n    left: 0;\n    top: 0;\n    bottom: 0;\n    justify-content: center;\n    background: rgba(64, 64, 64, .4);\n}\n\n\n\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-wrapper[data-v-26617c6a] {\n    display: flex;\n    position: absolute;\n    align-items: center;\n    right: 0;\n    left: 0;\n    top: 0;\n    bottom: 0;\n    justify-content: center;\n    background: rgba(64, 64, 64, .4);\n}\nimg[data-v-26617c6a] {\n    margin-left: 75px;\n}\n.fa-check[data-v-26617c6a] {\n    color: white;\n}\n\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2676,6 +2736,21 @@ module.exports = function (cssWithMappingToString) {
 
   return list;
 };
+
+/***/ }),
+
+/***/ "./resources/pictures/cross.png":
+/*!**************************************!*\
+  !*** ./resources/pictures/cross.png ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/cross.png?630e56a65e2ee4f9671e224c0c9fd182");
 
 /***/ }),
 
@@ -21505,38 +21580,44 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("div", { staticClass: "container" }, [
-        _c(
-          "header",
-          {
-            staticClass:
-              "d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"
-          },
-          [
-            _c(
-              "a",
-              {
-                staticClass:
-                  "d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none",
-                attrs: { href: "/" }
-              },
-              [
-                _c("span", { staticClass: "fs-4" }, [
-                  _vm._v("Cool Project Name")
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "fs-4 ml-4" }, [
-                  _vm._v(_vm._s(_vm.timestamp))
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _vm._m(0)
-          ]
-        )
+      _vm._v(
+        "\n\n        //todo separate content to specific components\n        "
+      ),
+      _c("div", [
+        _vm._v("\n            //make component with site header\n            "),
+        _c("div", { staticClass: "row text-white" }, [
+          _c(
+            "header",
+            {
+              staticClass:
+                "d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom ml-10"
+            },
+            [
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none",
+                  attrs: { href: "/" }
+                },
+                [
+                  _c("span", { staticClass: "fs-4 " }, [
+                    _vm._v("Cool Project Name  -  ")
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "fs-4 pl-4" }, [
+                    _vm._v(_vm._s(_vm.timestamp))
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(0)
+            ]
+          )
+        ])
       ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "container" }, [
+      _vm._v("\n\n        //todo component with main content\n        "),
+      _c("div", { staticClass: "container " }, [
         _c("p", [_vm._v("Contacts")]),
         _vm._v(" "),
         _c(
@@ -21573,6 +21654,9 @@ var render = function() {
           [
             _c("thead", [
               _c("tr", [
+                _vm._v(
+                  "\n                    //todo remove unnecessary inputs\n                    //todo make pretty sorting\n                    "
+                ),
                 _c("th", { attrs: { scope: "col" } }, [
                   _c("input", {
                     staticClass: "checkall",
@@ -21585,6 +21669,8 @@ var render = function() {
                     }
                   })
                 ]),
+                _vm._v(" "),
+                _c("th"),
                 _vm._v(" "),
                 _c("th", [
                   _c("input", {
@@ -21624,24 +21710,17 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                                Name\n                            "
-                      )
+                        "\n                            Name\n                            "
+                      ),
+                      _c("i", { staticClass: "fas fa-sort" })
                     ]
                   ),
                   _vm._v(" "),
                   _vm.sorting === "name"
-                    ? _c(
-                        "span",
-                        {
-                          staticClass: "position-absolute m-1",
-                          staticStyle: { "font-size": "12px" }
-                        },
-                        [
-                          _vm.sort.name
-                            ? _c("i", [_vm._v("▲")])
-                            : _c("i", [_vm._v("▼")])
-                        ]
-                      )
+                    ? _c("span", {
+                        staticClass: "position-absolute m-1",
+                        staticStyle: { "font-size": "12px" }
+                      })
                     : _vm._e()
                 ]),
                 _vm._v(" "),
@@ -21683,24 +21762,17 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                                Email\n                            "
-                      )
+                        "\n\n                            Email\n                            "
+                      ),
+                      _c("i", { staticClass: "fas fa-sort" })
                     ]
                   ),
                   _vm._v(" "),
                   _vm.sorting === "email"
-                    ? _c(
-                        "span",
-                        {
-                          staticClass: "position-absolute m-1",
-                          staticStyle: { "font-size": "12px" }
-                        },
-                        [
-                          _vm.sort.email
-                            ? _c("i", [_vm._v("▲")])
-                            : _c("i", [_vm._v("▼")])
-                        ]
-                      )
+                    ? _c("span", {
+                        staticClass: "position-absolute m-1",
+                        staticStyle: { "font-size": "12px" }
+                      })
                     : _vm._e()
                 ]),
                 _vm._v(" "),
@@ -21742,24 +21814,17 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                                Address\n                            "
-                      )
+                        "\n                            Address\n                            "
+                      ),
+                      _c("i", { staticClass: "fas fa-sort" })
                     ]
                   ),
                   _vm._v(" "),
                   _vm.sorting === "address"
-                    ? _c(
-                        "span",
-                        {
-                          staticClass: "position-absolute m-1",
-                          staticStyle: { "font-size": "12px" }
-                        },
-                        [
-                          _vm.sort.address
-                            ? _c("i", [_vm._v("▲")])
-                            : _c("i", [_vm._v("▼")])
-                        ]
-                      )
+                    ? _c("span", {
+                        staticClass: "position-absolute m-1",
+                        staticStyle: { "font-size": "12px" }
+                      })
                     : _vm._e()
                 ]),
                 _vm._v(" "),
@@ -21801,32 +21866,33 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                                Created\n                            "
-                      )
+                        "\n                            Created\n                            "
+                      ),
+                      _c("i", { staticClass: "fas fa-sort" })
                     ]
                   ),
                   _vm._v(" "),
                   _vm.sorting === "created_at"
-                    ? _c(
-                        "span",
-                        {
-                          staticClass: "position-absolute m-1",
-                          staticStyle: { "font-size": "12px" }
-                        },
-                        [
-                          _vm.sort.created_at
-                            ? _c("i", [_vm._v("▲")])
-                            : _c("i", [_vm._v("▼")])
-                        ]
-                      )
+                    ? _c("span", {
+                        staticClass: "position-absolute m-1",
+                        staticStyle: { "font-size": "12px" }
+                      })
                     : _vm._e()
-                ])
+                ]),
+                _vm._v(" "),
+                _c("th")
               ])
             ]),
-            _vm._v(" "),
+            _vm._v(
+              "\n                //todo repeat tr instead of body\n                "
+            ),
             _vm._l(_vm.desks, function(desk) {
               return _c("tbody", [
                 _c("tr", [
+                  _vm._v(
+                    "\n                    //clean up tags\n                    "
+                  ),
+                  _vm._v(" "),
                   _c("th", { attrs: { scope: "col" } }, [
                     _c("input", {
                       staticClass: "thing",
@@ -21838,25 +21904,37 @@ var render = function() {
                         }
                       }
                     }),
+                    _vm._v(" "),
                     _c("td")
                   ]),
+                  _vm._m(1, true),
+                  _vm._v(" "),
                   _c("th", { attrs: { scope: "row" } }, [
-                    _c("i", { staticClass: "far fa-times-circle" }),
-                    _vm._v(" " + _vm._s(desk.name))
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v(_vm._s(desk.name))
+                    ])
                   ]),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(desk.email))]),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(desk.address))]),
-                  _vm._v(" "),
-                  _c("td", [
+                  _vm._v(
+                    "\n                    //todo check tables styling rules\n                    "
+                  ),
+                  _c("td", { staticStyle: { width: "150px" } }, [
                     _vm._v(
-                      "\n                            " +
+                      "\n                        " +
                         _vm._s(desk.timeString) +
-                        "\n                            "
+                        "\n                    "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("th", [
+                    _vm._v(
+                      "\n                        //todo make a separated component for dropdown\n                        "
                     ),
                     _c("div", { staticClass: "btn-group dropend" }, [
-                      _vm._m(1, true),
+                      _vm._m(2, true),
                       _vm._v(" "),
                       _c("ul", { staticClass: "dropdown-menu" }, [
                         _c("li", [
@@ -21878,7 +21956,7 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
-                        _vm._m(2, true),
+                        _vm._m(3, true),
                         _vm._v(" "),
                         _c("li", [
                           _c(
@@ -21911,7 +21989,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                            Warning!!!\n                        "
+                            "\n                        Warning!!!\n                    "
                           )
                         ]
                       )
@@ -21946,11 +22024,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "dropdown ms-3 select" }, [
+    return _c("div", { staticClass: "dropdown ms-3 " }, [
       _c(
         "button",
         {
-          staticClass: "btn btn-bd-light ",
+          staticClass: "btn btn-secondary dropdown-toggle select",
           attrs: {
             id: "bd-versions",
             "aria-expanded": "false",
@@ -21958,10 +22036,7 @@ var staticRenderFns = [
           }
         },
         [
-          _c("i", {
-            staticClass: "fa fa-user-circle",
-            attrs: { "aria-hidden": "true" }
-          }),
+          _c("i", { staticClass: "far fa-user-circle" }),
           _vm._v(" "),
           _c("span", { staticClass: "d-none d-lg-inline" }, [
             _vm._v("Your Name")
@@ -21969,6 +22044,12 @@ var staticRenderFns = [
         ]
       )
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("th", [_c("i", { staticClass: "far fa-window-close" })])
   },
   function() {
     var _vm = this
@@ -22017,6 +22098,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "modal-wrapper" }, [
+    _vm._v(
+      "\n    //todo single modal for editing and creating\n    //into modal you need pass id. IF id empty - modal type = create. If id not empty - modal type edit\n    "
+    ),
     _c("div", [
       _c("div", { staticClass: "modal-content" }, [
         _c("div", { staticClass: "modal-header" }, [
@@ -22034,159 +22118,167 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "modal-body" }, [
-          _c("div", { staticClass: "mb-3 row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-sm-2 col-form-label",
-                attrs: { for: "userName" }
-              },
-              [_vm._v("Name")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-10" }, [
-              _c("input", {
-                directives: [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "mb-3 row" }, [
+                _c(
+                  "label",
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.userName,
-                    expression: "userName"
-                  }
-                ],
-                staticClass: "form-control",
-                class: _vm.validate.name ? "" : " is-invalid",
-                attrs: {
-                  type: "text",
-                  id: "userName",
-                  placeholder: "Please enter your name"
-                },
-                domProps: { value: _vm.userName },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+                    staticClass: "col-sm-2 col-form-label",
+                    attrs: { for: "userName" }
+                  },
+                  [_vm._v("Name")]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-10" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.userName,
+                        expression: "userName"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    class: _vm.validate.name ? "" : " is-invalid",
+                    attrs: {
+                      type: "text",
+                      id: "userName",
+                      placeholder: "Please enter your name"
+                    },
+                    domProps: { value: _vm.userName },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.userName = $event.target.value
+                      }
                     }
-                    _vm.userName = $event.target.value
-                  }
-                }
-              }),
+                  }),
+                  _vm._v(" "),
+                  !_vm.validate.name
+                    ? _c("div", { staticClass: "invalid-feedback" }, [
+                        _vm._v(
+                          "\n                            The name must be at least 5 characters.\n                        "
+                        )
+                      ])
+                    : _vm._e()
+                ])
+              ]),
               _vm._v(" "),
-              !_vm.validate.name
-                ? _c("div", { staticClass: "invalid-feedback" }, [
-                    _vm._v(
-                      "\n                            The name must be at least 5 characters.\n                        "
-                    )
-                  ])
-                : _vm._e()
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mb-3 row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-sm-2 col-form-label",
-                attrs: { for: "userEmail" }
-              },
-              [_vm._v("Email")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-10" }, [
-              _c("input", {
-                directives: [
+              _c("div", { staticClass: "mb-3 row" }, [
+                _c(
+                  "label",
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.userEmail,
-                    expression: "userEmail"
-                  }
-                ],
-                staticClass: "form-control",
-                class:
-                  _vm.validate.email && _vm.validate.emailParser
-                    ? ""
-                    : " is-invalid",
-                attrs: {
-                  type: "text",
-                  id: "userEmail",
-                  placeholder: "test@domain.com"
-                },
-                domProps: { value: _vm.userEmail },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+                    staticClass: "col-sm-2 col-form-label",
+                    attrs: { for: "userEmail" }
+                  },
+                  [_vm._v("Email")]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-10" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.userEmail,
+                        expression: "userEmail"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    class:
+                      _vm.validate.email && _vm.validate.emailParser
+                        ? ""
+                        : " is-invalid",
+                    attrs: {
+                      type: "text",
+                      id: "userEmail",
+                      placeholder: "test@domain.com"
+                    },
+                    domProps: { value: _vm.userEmail },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.userEmail = $event.target.value
+                      }
                     }
-                    _vm.userEmail = $event.target.value
-                  }
-                }
-              }),
+                  }),
+                  _vm._v(" "),
+                  !_vm.validate.email
+                    ? _c("div", { staticClass: "invalid-feedback" }, [
+                        _vm._v(
+                          "\n                            The email must be at least 5 characters.\n                        "
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.validate.emailParser
+                    ? _c("div", { staticClass: "invalid-feedback" }, [
+                        _vm._v(
+                          "\n                            Invalid email\n                    "
+                        )
+                      ])
+                    : _vm._e()
+                ])
+              ]),
               _vm._v(" "),
-              !_vm.validate.email
-                ? _c("div", { staticClass: "invalid-feedback" }, [
-                    _vm._v(
-                      "\n                            The email must be at least 5 characters.\n                        "
-                    )
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              !_vm.validate.emailParser
-                ? _c("div", { staticClass: "invalid-feedback" }, [
-                    _vm._v(
-                      "\n                            Invalid email\n                    "
-                    )
-                  ])
-                : _vm._e()
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mb-3 row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-sm-2 col-form-label",
-                attrs: { for: "userAddress" }
-              },
-              [_vm._v("Address")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-10" }, [
-              _c("input", {
-                directives: [
+              _c("div", { staticClass: "mb-3 row" }, [
+                _c(
+                  "label",
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.userAddress,
-                    expression: "userAddress"
-                  }
-                ],
-                staticClass: "form-control",
-                class: _vm.validate.address ? "" : " is-invalid",
-                attrs: {
-                  type: "text",
-                  id: "userAddress",
-                  placeholder: "New Channel Name"
-                },
-                domProps: { value: _vm.userAddress },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+                    staticClass: "col-sm-2 col-form-label",
+                    attrs: { for: "userAddress" }
+                  },
+                  [_vm._v("Address")]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-10" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.userAddress,
+                        expression: "userAddress"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    class: _vm.validate.address ? "" : " is-invalid",
+                    attrs: {
+                      type: "text",
+                      id: "userAddress",
+                      placeholder: "New Channel Name"
+                    },
+                    domProps: { value: _vm.userAddress },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.userAddress = $event.target.value
+                      }
                     }
-                    _vm.userAddress = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              !_vm.validate.address
-                ? _c("div", { staticClass: "invalid-feedback" }, [
-                    _vm._v(
-                      "\n                            The address must be at least 5 characters.\n                        "
-                    )
-                  ])
-                : _vm._e()
-            ])
+                  }),
+                  _vm._v(" "),
+                  !_vm.validate.address
+                    ? _c("div", { staticClass: "invalid-feedback" }, [
+                        _vm._v(
+                          "\n                            The address must be at least 5 characters.\n                        "
+                        )
+                      ])
+                    : _vm._e()
+                ])
+              ])
+            ]),
+            _vm._v(
+              "\n                    //todo study absolute paths to images in laravel + vue\n                    "
+            ),
+            _vm._m(0)
           ])
         ]),
         _vm._v(" "),
@@ -22215,7 +22307,23 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("img", {
+        attrs: {
+          src: "/images/cross.png",
+          alt: "",
+          width: "150px",
+          height: "150px"
+        }
+      })
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -22239,6 +22347,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { ref: "modal_wrapper", staticClass: "modal-wrapper" }, [
+    _vm._v("\n        //todo remove this\n        "),
     _c("div", [
       _c("div", { staticClass: "modal-content" }, [
         _c("div", { staticClass: "modal-header" }, [
@@ -22256,158 +22365,173 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "modal-body" }, [
-          _c("div", { staticClass: "mb-3 row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-sm-2 col-form-label",
-                attrs: { for: "userName" }
-              },
-              [_vm._v("Name")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-10" }, [
-              _c("input", {
-                directives: [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "mb-3 row" }, [
+                _c(
+                  "label",
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.userName,
-                    expression: "userName"
-                  }
-                ],
-                staticClass: "form-control",
-                class: _vm.validate.name ? "" : " is-invalid",
-                attrs: {
-                  type: "text",
-                  id: "userName",
-                  placeholder: "Please enter your name"
-                },
-                domProps: { value: _vm.userName },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+                    staticClass: "col-sm-2 col-form-label",
+                    attrs: { for: "userName" }
+                  },
+                  [_vm._v("Name")]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-10" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.userName,
+                        expression: "userName"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    class: _vm.validate.name ? "" : " is-invalid",
+                    attrs: {
+                      type: "text",
+                      id: "userName",
+                      placeholder: "Please enter your name"
+                    },
+                    domProps: { value: _vm.userName },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.userName = $event.target.value
+                      }
                     }
-                    _vm.userName = $event.target.value
-                  }
-                }
-              }),
+                  }),
+                  _vm._v(" "),
+                  !_vm.validate.name
+                    ? _c("div", { staticClass: "invalid-feedback" }, [
+                        _vm._v(
+                          "\n                                The name must be at least 5 characters.\n                            "
+                        )
+                      ])
+                    : _vm._e()
+                ])
+              ]),
               _vm._v(" "),
-              !_vm.validate.name
-                ? _c("div", { staticClass: "invalid-feedback" }, [
-                    _vm._v(
-                      "\n                            The name must be at least 5 characters.\n                        "
-                    )
-                  ])
-                : _vm._e()
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mb-3 row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-sm-2 col-form-label",
-                attrs: { for: "userEmail" }
-              },
-              [_vm._v("Email")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-10" }, [
-              _c("input", {
-                directives: [
+              _c("div", { staticClass: "mb-3 row" }, [
+                _c(
+                  "label",
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.userEmail,
-                    expression: "userEmail"
-                  }
-                ],
-                staticClass: "form-control",
-                class:
-                  _vm.validate.email && _vm.validate.emailParser
-                    ? ""
-                    : " is-invalid",
-                attrs: {
-                  type: "text",
-                  id: "userEmail",
-                  placeholder: "test@domain.com"
-                },
-                domProps: { value: _vm.userEmail },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+                    staticClass: "col-sm-2 col-form-label",
+                    attrs: { for: "userEmail" }
+                  },
+                  [_vm._v("Email")]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-10" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.userEmail,
+                        expression: "userEmail"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    class:
+                      _vm.validate.email && _vm.validate.emailParser
+                        ? ""
+                        : " is-invalid",
+                    attrs: {
+                      type: "text",
+                      id: "userEmail",
+                      placeholder: "test@domain.com"
+                    },
+                    domProps: { value: _vm.userEmail },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.userEmail = $event.target.value
+                      }
                     }
-                    _vm.userEmail = $event.target.value
-                  }
-                }
-              }),
+                  }),
+                  _vm._v(" "),
+                  !_vm.validate.email
+                    ? _c("div", { staticClass: "invalid-feedback" }, [
+                        _vm._v(
+                          "\n                                The email must be at least 5 characters.\n                            "
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.validate.emailParser
+                    ? _c("div", { staticClass: "invalid-feedback" }, [
+                        _vm._v(
+                          "\n                                Invalid email\n                            "
+                        )
+                      ])
+                    : _vm._e()
+                ])
+              ]),
               _vm._v(" "),
-              !_vm.validate.email
-                ? _c("div", { staticClass: "invalid-feedback" }, [
-                    _vm._v(
-                      "\n                            The email must be at least 5 characters.\n                        "
-                    )
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              !_vm.validate.emailParser
-                ? _c("div", { staticClass: "invalid-feedback" }, [
-                    _vm._v(
-                      "\n                            Invalid email\n                        "
-                    )
-                  ])
-                : _vm._e()
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mb-3 row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-sm-2 col-form-label",
-                attrs: { for: "userAddress" }
-              },
-              [_vm._v("Address")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-10" }, [
-              _c("input", {
-                directives: [
+              _c("div", { staticClass: "mb-3 row" }, [
+                _c(
+                  "label",
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.userAddress,
-                    expression: "userAddress"
-                  }
-                ],
-                staticClass: "form-control",
-                class: _vm.validate.address ? "" : " is-invalid",
-                attrs: {
-                  type: "text",
-                  id: "userAddress",
-                  placeholder: "New Channel Name"
-                },
-                domProps: { value: _vm.userAddress },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+                    staticClass: "col-sm-2 col-form-label",
+                    attrs: { for: "userAddress" }
+                  },
+                  [_vm._v("Address")]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-10" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.userAddress,
+                        expression: "userAddress"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    class: _vm.validate.address ? "" : " is-invalid",
+                    attrs: {
+                      type: "text",
+                      id: "userAddress",
+                      placeholder: "New Channel Name"
+                    },
+                    domProps: { value: _vm.userAddress },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.userAddress = $event.target.value
+                      }
                     }
-                    _vm.userAddress = $event.target.value
-                  }
+                  }),
+                  _vm._v(" "),
+                  !_vm.validate.address
+                    ? _c("div", { staticClass: "invalid-feedback" }, [
+                        _vm._v(
+                          "\n                                The address must be at least 5 characters.\n                            "
+                        )
+                      ])
+                    : _vm._e()
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("img", {
+                attrs: {
+                  src: __webpack_require__(/*! ./resources/pictures/cross.png */ "./resources/pictures/cross.png").default,
+                  alt: "",
+                  width: "150px",
+                  height: "150px"
                 }
-              }),
-              _vm._v(" "),
-              !_vm.validate.address
-                ? _c("div", { staticClass: "invalid-feedback" }, [
-                    _vm._v(
-                      "\n                            The address must be at least 5 characters.\n                        "
-                    )
-                  ])
-                : _vm._e()
+              })
             ])
           ])
         ]),
@@ -22430,7 +22554,7 @@ var render = function() {
               attrs: { type: "button" },
               on: { click: _vm.editDesk }
             },
-            [_vm._v("Save changes")]
+            [_c("i", { staticClass: "fas fa-check" }), _vm._v("Save changes")]
           )
         ])
       ])

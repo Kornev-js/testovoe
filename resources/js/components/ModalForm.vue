@@ -1,13 +1,17 @@
 <template>
 <div class="modal-wrapper">
+    //todo single modal for editing and creating
+    //into modal you need pass id. IF id empty - modal type = create. If id not empty - modal type edit
     <div>
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Create Contact</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="closeModal"></button>
             </div>
-            <div class="modal-body">
 
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
                 <div class="mb-3 row">
                     <label for="userName" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
@@ -28,6 +32,7 @@
                         <div v-if="!validate.emailParser" class="invalid-feedback">
                             Invalid email
                     </div>
+
                     </div>
                 </div>
 
@@ -38,9 +43,16 @@
                         <div v-if="!validate.address" class="invalid-feedback">
                             The address must be at least 5 characters.
                         </div>
+
                     </div>
                 </div>
             </div>
+                    //todo study absolute paths to images in laravel + vue
+                    <div class="col-md-6"><img src="/images/cross.png" alt="" width="150px" height="150px"></div>
+                </div>
+            </div>
+
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="closeModal">Close</button>
                 <button type="button" class="btn btn-primary" @click="addNewDesk">Add</button>
@@ -55,6 +67,7 @@
 </template>
 
 <script>
+
 //todo read about vue  props: , watcher
 //check dmitriy solution
 export default {
@@ -70,6 +83,7 @@ export default {
             userName:'',
             userEmail:'',
             userAddress:'',
+
             validate:{
                 name: true,
                 email: true,
@@ -80,6 +94,8 @@ export default {
     },
 
     watch: {
+        //todo move validation from js to laravel
+        //show validation errors from laravel
         userName(){
             this.validate.name = !(this.userName.length < 5 && this.userName.length > 0);
         },
@@ -133,6 +149,10 @@ export default {
     bottom: 0;
     justify-content: center;
     background: rgba(64, 64, 64, .4);
+}
+
+img {
+    margin-left: 75px;
 }
 
 

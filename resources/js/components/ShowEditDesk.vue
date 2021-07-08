@@ -1,5 +1,7 @@
 <template>
+
     <div class="modal-wrapper" ref="modal_wrapper">
+        //todo remove this
         <div>
             <div class="modal-content">
                 <div class="modal-header">
@@ -7,7 +9,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="closeModal"></button>
                 </div>
                 <div class="modal-body">
-
+                    <div class="row">
+                        <div class="col-md-6">
                     <div class="mb-3 row">
                         <label for="userName" class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">
@@ -40,12 +43,13 @@
                             </div>
                         </div>
                     </div>
-
-
+</div>
+                        <div class="col-md-6"><img :src="require('/var/www/laravel/Test/resources/pictures/cross.png').default" alt="" width="150px" height="150px"></div>
                 </div>
+                    </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="closeModal">Close</button>
-                    <button type="button" class="btn btn-primary" @click="editDesk">Save changes</button>
+                    <button type="button" class="btn btn-primary" @click="editDesk"><i class="fas fa-check"></i>Save changes</button>
                 </div>
             </div>
         </div>
@@ -129,7 +133,13 @@ export default {
     background: rgba(64, 64, 64, .4);
 }
 
+img {
+    margin-left: 75px;
+}
 
+.fa-check {
+    color: white;
+}
 
 
 
