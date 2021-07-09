@@ -51,7 +51,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="closeModal">Close</button>
                 <button v-if="desk === null" type="button" class="btn btn-primary" @click="addNewDesk">Add</button>
-                <button v-else type="button" class="btn btn-primary" @click="editDesk">Edit</button>
+                <button v-else type="button" class="btn btn-primary" @click="editDesk"><i class="fas fa-check"></i>Save changes</button>
             </div>
         </div>
     </div>

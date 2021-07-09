@@ -7,9 +7,6 @@ use App\Http\Requests\DeskStoreRequest;
 use App\Http\Requests\DeskUpdateRequest;
 use App\Http\Resources\DeskResource;
 use App\Models\ContactDesk;
-use http\Env\Response;
-use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class Deskcontroller extends Controller
 {
@@ -67,7 +64,6 @@ class Deskcontroller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(ContactDesk $desk)
-
     {
         $desk->delete();
         return response(null, \Illuminate\Http\Response::HTTP_NO_CONTENT);

@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="container ">
-            <p>Contacts</p>
+        <div class="container border-css mt-5">
+            <p class="table-title">Contacts</p>
 
             <button type="button" class="btn btn-primary add" @click="showModal">
                 <i class="fas fa-plus-circle"></i>
@@ -11,7 +11,7 @@
                 <i class="far fa-times-circle"></i>
                 Delete marked
             </button>
-        </div>
+
         <div class="container">
             <table class="table">
                 <thead>
@@ -19,8 +19,9 @@
                     <!--                    //TODO: todo remove unnecessary inputs :DONE-->
                     <!--                    //TODO: todo make pretty sorting-->
                     <th scope="col">
-                        <input type="checkbox" class="checkall" :checked="checkedAll"
-                                           @change="checkAll($event.target.checked)"></th>
+                        <input type="checkbox" class="checkall"
+                               :checked="checkedAll"
+                               @change="checkAll($event.target.checked)"></th>
                     <th></th>
                     <th>
                         <div
@@ -47,7 +48,7 @@
                             <i class="fas fa-sort"></i>
                         </div>
                     </th>
-                    <th>
+                    <th  style="width: 150px">
                         <div
                                @click="sortBy('created_at')"
                                style="cursor: pointer">
@@ -69,14 +70,15 @@
                                 type="checkbox"
                                 class="thing"
                                 v-on:click="desk.checked = !desk.checked" :checked="desk.checked"
-                            ></td>
+                            >
+                        </td>
                         <td><i class="far fa-window-close"></i></td>
-                        <td scope="row"><a href="#">{{ desk.name }}</a></td>
+                        <td ><a href="#">{{ desk.name }}</a></td>
 
                         <td>{{ desk.email }}</td>
                         <td>{{ desk.address }}</td>
                         <!--                    //TODO: todo check tables styling rules :DONE-->
-                        <td style="width: 150px">
+                        <td>
                             {{ desk.timeString }}
                         </td>
                         <td>
@@ -90,6 +92,7 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
         </div>
         <ModalForm
             v-if="isModalVisible"
@@ -275,4 +278,13 @@ i {
 .fa-sort {
     padding-left: 50px;
 }
+.border-css{
+border: 2px solid;
+
+}
+
+.table-title {
+    font-size: 30px;
+}
+
 </style>

@@ -2293,6 +2293,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2604,7 +2607,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\ni[data-v-0f4dce2f] {\n    padding-left: 10px;\n}\n.btn-primary.add[data-v-0f4dce2f] {\n    margin-left: 900px;\n}\n.far[data-v-0f4dce2f],\n.fas[data-v-0f4dce2f] {\n    margin-right: 7px;\n}\n.fa-sort[data-v-0f4dce2f] {\n    padding-left: 50px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\ni[data-v-0f4dce2f] {\n    padding-left: 10px;\n}\n.btn-primary.add[data-v-0f4dce2f] {\n    margin-left: 900px;\n}\n.far[data-v-0f4dce2f],\n.fas[data-v-0f4dce2f] {\n    margin-right: 7px;\n}\n.fa-sort[data-v-0f4dce2f] {\n    padding-left: 50px;\n}\n.border-css[data-v-0f4dce2f]{\nborder: 2px solid;\n}\n.table-title[data-v-0f4dce2f] {\n    font-size: 30px;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -43409,7 +43412,10 @@ var render = function() {
                   attrs: { type: "button" },
                   on: { click: _vm.editDesk }
                 },
-                [_vm._v("Edit")]
+                [
+                  _c("i", { staticClass: "fas fa-check" }),
+                  _vm._v("Save changes")
+                ]
               )
         ])
       ])
@@ -43607,8 +43613,8 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("div", { staticClass: "container " }, [
-        _c("p", [_vm._v("Contacts")]),
+      _c("div", { staticClass: "container border-css mt-5" }, [
+        _c("p", { staticClass: "table-title" }, [_vm._v("Contacts")]),
         _vm._v(" "),
         _c(
           "button",
@@ -43634,168 +43640,170 @@ var render = function() {
             _c("i", { staticClass: "far fa-times-circle" }),
             _vm._v("\n                Delete marked\n            ")
           ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "container" }, [
-        _c("table", { staticClass: "table" }, [
-          _c("thead", [
-            _c("tr", [
-              _c("th", { attrs: { scope: "col" } }, [
-                _c("input", {
-                  staticClass: "checkall",
-                  attrs: { type: "checkbox" },
-                  domProps: { checked: _vm.checkedAll },
-                  on: {
-                    change: function($event) {
-                      return _vm.checkAll($event.target.checked)
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("th"),
-              _vm._v(" "),
-              _c("th", [
-                _c(
-                  "div",
-                  {
-                    staticStyle: { cursor: "pointer" },
-                    on: {
-                      click: function($event) {
-                        return _vm.sortBy("name")
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                            Name\n                            "
-                    ),
-                    _c("i", { staticClass: "fas fa-sort" })
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("th", [
-                _c(
-                  "div",
-                  {
-                    staticStyle: { cursor: "pointer" },
-                    on: {
-                      click: function($event) {
-                        return _vm.sortBy("email")
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n\n                            Email\n                            "
-                    ),
-                    _c("i", { staticClass: "fas fa-sort" })
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("th", [
-                _c(
-                  "div",
-                  {
-                    staticStyle: { cursor: "pointer" },
-                    on: {
-                      click: function($event) {
-                        return _vm.sortBy("address")
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                            Address\n                            "
-                    ),
-                    _c("i", { staticClass: "fas fa-sort" })
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("th", [
-                _c(
-                  "div",
-                  {
-                    staticStyle: { cursor: "pointer" },
-                    on: {
-                      click: function($event) {
-                        return _vm.sortBy("created_at")
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                            Created\n                            "
-                    ),
-                    _c("i", { staticClass: "fas fa-sort" })
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("th")
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            _vm._l(_vm.desks, function(desk) {
-              return _c("tr", [
-                _c("td", { attrs: { scope: "col" } }, [
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "container" }, [
+          _c("table", { staticClass: "table" }, [
+            _c("thead", [
+              _c("tr", [
+                _c("th", { attrs: { scope: "col" } }, [
                   _c("input", {
-                    staticClass: "thing",
+                    staticClass: "checkall",
                     attrs: { type: "checkbox" },
-                    domProps: { checked: desk.checked },
+                    domProps: { checked: _vm.checkedAll },
                     on: {
-                      click: function($event) {
-                        desk.checked = !desk.checked
+                      change: function($event) {
+                        return _vm.checkAll($event.target.checked)
                       }
                     }
                   })
                 ]),
                 _vm._v(" "),
-                _vm._m(0, true),
+                _c("th"),
                 _vm._v(" "),
-                _c("td", { attrs: { scope: "row" } }, [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v(_vm._s(desk.name))])
-                ]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(desk.email))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(desk.address))]),
-                _vm._v(" "),
-                _c("td", { staticStyle: { width: "150px" } }, [
-                  _vm._v(
-                    "\n                            " +
-                      _vm._s(desk.timeString) +
-                      "\n                        "
+                _c("th", [
+                  _c(
+                    "div",
+                    {
+                      staticStyle: { cursor: "pointer" },
+                      on: {
+                        click: function($event) {
+                          return _vm.sortBy("name")
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Name\n                            "
+                      ),
+                      _c("i", { staticClass: "fas fa-sort" })
+                    ]
                   )
                 ]),
                 _vm._v(" "),
-                _c(
-                  "td",
-                  [
-                    _c("the-dropdown", {
-                      attrs: { desk: desk },
+                _c("th", [
+                  _c(
+                    "div",
+                    {
+                      staticStyle: { cursor: "pointer" },
                       on: {
-                        viewDesk: function($event) {
-                          return _vm.editPost(desk)
-                        },
-                        deleteDesk: function($event) {
-                          return _vm.deleteDesk(desk.id)
+                        click: function($event) {
+                          return _vm.sortBy("email")
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n\n                            Email\n                            "
+                      ),
+                      _c("i", { staticClass: "fas fa-sort" })
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("th", [
+                  _c(
+                    "div",
+                    {
+                      staticStyle: { cursor: "pointer" },
+                      on: {
+                        click: function($event) {
+                          return _vm.sortBy("address")
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Address\n                            "
+                      ),
+                      _c("i", { staticClass: "fas fa-sort" })
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("th", { staticStyle: { width: "150px" } }, [
+                  _c(
+                    "div",
+                    {
+                      staticStyle: { cursor: "pointer" },
+                      on: {
+                        click: function($event) {
+                          return _vm.sortBy("created_at")
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Created\n                            "
+                      ),
+                      _c("i", { staticClass: "fas fa-sort" })
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("th")
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.desks, function(desk) {
+                return _c("tr", [
+                  _c("td", { attrs: { scope: "col" } }, [
+                    _c("input", {
+                      staticClass: "thing",
+                      attrs: { type: "checkbox" },
+                      domProps: { checked: desk.checked },
+                      on: {
+                        click: function($event) {
+                          desk.checked = !desk.checked
                         }
                       }
                     })
-                  ],
-                  1
-                )
-              ])
-            }),
-            0
-          )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(0, true),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v(_vm._s(desk.name))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(desk.email))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(desk.address))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(desk.timeString) +
+                        "\n                        "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    [
+                      _c("the-dropdown", {
+                        attrs: { desk: desk },
+                        on: {
+                          viewDesk: function($event) {
+                            return _vm.editPost(desk)
+                          },
+                          deleteDesk: function($event) {
+                            return _vm.deleteDesk(desk.id)
+                          }
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              }),
+              0
+            )
+          ])
         ])
       ]),
       _vm._v(" "),

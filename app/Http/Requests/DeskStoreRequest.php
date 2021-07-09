@@ -26,9 +26,9 @@ class DeskStoreRequest extends FormRequest
         //TODO: todo make separated update request :DONE
         //TODO: todo make normal rules :DONE
         return [
-            'name' => 'required',
+            'name' => 'required|min:5',
             'email' => 'required|email',
-            'address' => 'required'
+            'address' => 'required|min:5'
         ];
     }
 }
